@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="history.css">
+</head>
+
+<body>
+  <h1>Your previous liked images:
+    <h2>Total: <span>0</span></h2>
+  </h1>
+  <div class='grid'></div>
+  <script type="text/javascript">
+    let span = document.querySelector('span')
+    let grid = document.querySelector('.grid')
+    let liked = JSON.parse(localStorage.getItem("likeditem"))
+    let disliked = JSON.parse(localStorage.getItem("dislikeditem"))
+
+    function displayliked() {
+      grid.innerHTML = ''
+      let all = document.querySelectorAll(".last")
+      if (all) {
+        all.forEach(item => {
+          item.remove()
+        })
+      }
+      if (liked.length == 0) {
+        grid.innerHTML += "<b id='b'>You doesn't have any disliked images yet! Click <button id='custom'>here</button> to go to the gallery to find some</b>"
+      }
+      for (let i in liked) {
+
+        let title = liked[i].title;
+        let date = liked[i].date
+        let url = liked[i].url
+        let service = liked[i].service_version
+        let media = liked[i].media_type
+        let copyright = liked[i].copyright
+        if (!copyright) {
+          copyright = '<i>Unknown</i>'
+        }
+        let content = liked[i].explanation
+        grid.innerHTML += `
+       <div class='gallery'>
+     
+        <div class='pho'>
+         <img class='ori' src=${url} alt='We are sorry but at this time we are unable to load this image or doesn't support this type of media'>
+         </div>
+         <div class='title'>Title: ${title}</div>
+         <hr class='hr'>
+          <div class='allcontent'>
+         <div class='date'>Date: ${date}</div>
+          <div class='copyright'>Copyright: ${copyright}</div>
+          <div class='media'>Media_type: ${media}</div>
+          <div class='service'>Service_version: ${service}</div>
+         <div class='content'>Explanation: ${content}</div>
+         </div>
+         <button class='effect' disabled>Liked</button>  
+         <button class='effect remove' >Remove</button>
+         </div>
+         `
+      }
+      document.body.innerHTML += `
+       <button onclick = "window.location.href ='home.html'" class='last'>Homepage</button>
+       <button class='last' onclick='displaydisliked()'>Show Disliked images</button>
+       <button class='last' onclick='save()'>Save</button> 
+       <button class='last' onclick='clear(liked)'>Clear liked history</button>             `
+      span.textContent = parseInt(disliked.length)
+      for (let i in liked) {
+        let gallery = document.querySelectorAll('.gallery')
+        document.querySelectorAll('.remove')[i].addEventListener('click', function() {
+          liked.splice(liked.indexOf(liked[i], 1))
+          gallery[i].innerHTML = 'You remove this from history'
+          span.textContent = parseInt(disliked.length)
+        })
+
+      }
+    }
+
+
+
+    function displaydisliked() {
+      grid.innerHTML = ""
+      let all = document.querySelectorAll(".last")
+      if (all) {
+        all.forEach(item => {
+          item.remove()
+        })
+      }
+      if (disliked.length == 0) {
+        grid.innerHTML += "<b id='b'>You doesn't have any disliked images yet!</b>"
+      }
+      for (let i in disliked) {
+        let title = disliked[i].title;
+        let date = disliked[i].date
+        let url = disliked[i].url
+        let service = disliked[i].service_version
+        let media = disliked[i].media_type
+        let copyright = disliked[i].copyright
+        if (!copyright) {
+          copyright = '<i>Unknown</i>'
+        }
+        let content = disliked[i].explanation
+        grid.innerHTML += `
+       <div class='gallery'>
+     
+        <div class='pho'>
+         <img class='ori' src=${url} alt='We are sorry but at this time we are unable to load this image or doesn't support this type of media'>
+         </div>
+         <div class='title'>Title: ${title}</div>
+         <hr class='hr'>
+          <div class='allcontent'>
+         <div class='date'>Date: ${date}</div>
+          <div class='copyright'>Copyright: ${copyright}</div>
+          <div class='media'>Media_type: ${media}</div>
+          <div class='service'>Service_version: ${service}</div>
+         <div class='content'>Explanation: ${content}</div>
+         </div>
+         <button class='effect' disabled>Disiked</button>  
+         <button class='effect remove' >Remove</button>
+         <div>
+         `
+      }
+
+
+      document.body.innerHTML += `
+       <button onclick = "window.location.href ='home.html'" class='last'>Homepage</button>
+       <button class='last' onclick='displayliked()'>Show Liked images</button>
+       <button class='last' onclick='save()'>Save</button> 
+        <button class='last' onclick='clear(disliked)'>Clear disliked history</button>       `
+      span.textContent = parseInt(disliked.length)
+
+      for (let i in disliked) {
+        let gallery = document.querySelectorAll('.gallery')
+        document.querySelectorAll('.remove')[i].addEventListener('click', function() {
+          disliked.splice(disliked.indexOf(disliked[i], 1))
+          gallery[i].innerHTML = 'You remove this from history'
+        })
+
+      }
+    }
+
+    function save() {
+      span.textContent = parseInt(disliked.length)
+      localStorage.setItem('likeditem', JSON.stringify(liked));
+      localStorage.setItem('dislikeditem', JSON.stringify(disliked))
+    }
+    window.addEventListener('load', displayliked)
+    window.addEventListener('beforeunload', function(e) {
+      localStorage.setItem('likeditem', JSON.stringify(liked));
+      localStorage.setItem('dislikeditem', JSON.stringify(disliked));
+    })
+
+    function clear(item) {
+      localStorage.removeItem(item);
+    }
+  </script>
+
+
+</body>
+
+</html>
