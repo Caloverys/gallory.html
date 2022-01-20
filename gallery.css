@@ -1,0 +1,225 @@
+:root {
+  --wid: 325px;
+  --hei: 275px;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.load,
+.load:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+.load {
+  margin: 60px auto;
+  font-size: 13px;
+  position: sticky;
+  top: 40%;
+  left: 45%;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.15);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.15);
+  border-left: 1.1em solid grey;
+  transform: translateZ(0);
+  animation: load8 1.1s infinite linear;
+}
+
+
+}
+.effect:hover {
+  background: rgba(255, 182, 193, 0.9);
+  color: rgb(255, 0, 255);
+}
+.orin {
+  width: calc(var(--wid) - 10px);
+  height: var(--hei);
+  border-radius: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hr {
+  text-align: center;
+  width: 92.5%;
+}
+.likebutton,
+.dislikebutton {
+  background: transparent;
+  position: relative;
+  left: 10%;
+  padding: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border: 1px solid rgba(120, 120, 120, 0.6);
+  font-size: 1.01em;
+  margin-top: 10px;
+}
+.likebutton {
+  position: relative;
+  left: 2%;
+}
+.dislikebutton {
+  position: relative;
+  left: 60%;
+}
+.lovebutton {
+  background: white;
+  z-index: 5;
+  border: 1.25px black solid;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 900;
+  width: 27px;
+  height: 25px;
+  position: relative;
+  top: -8%;
+  left: 82%;
+  visibility: hidden;
+}
+.pho {
+  overflow: hidden;
+  object-fit: contain;
+  margin-bottom: 10px;
+  width: calc(var(--wid) - 10px);
+  height: var(--hei);
+  border-radius: 5px;
+}
+.gallery {
+  border-radius: 10px;
+  background: white;
+  width: var(--wid);
+  /*space between + in calc()*/
+  
+  height: calc(var(--hei) + 300px);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  padding: 10px;
+  line-height: 1.7em;
+}
+.details {
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  color: black;
+  font-size: 13.5px;
+}
+.newdetails {
+  color: rgba(128, 0, 128, 0.9);
+  font-size: 20px;
+}
+.details:hover {
+  color: #0000EE;
+}
+.likebutton:hover,
+.dislikebutton:hover {
+  color: grey;
+}
+.media,
+.service {
+  display: none;
+}
+.fullheart {
+  font-size: 35px;
+  color: red;
+  border: none;
+  background: none;
+  filter: drop-shadow(1px 1px 1px red);
+}
+.remove {
+  font-weight: 700;
+  font-size: 20px;
+  position: relative;
+  left: 99%;
+  top: -168%;
+  border: none;
+  color: grey;
+  background: transparent;
+}
+.remove:hover {
+  border: 1.75px solid black;
+  border-radius: 7px;
+}
+.more {
+  width: 90vw;
+  height: 90vh;
+  margin: auto;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  opacity: 1 !important;
+  z-index: 10;
+}
+.all {
+  position: relative;
+  width: 45vw;
+  height: 60vh;
+  left: 50%;
+  top: -98%;
+}
+.title {
+  font-weight: bolder;
+  font-size: 18px;
+  line-height: 1.2em;
+}
+.clicked {
+  background-color: black;
+  color: white;
+}
+.new {
+  width: 43vw;
+  height: 90vh;
+}
+.allmore {
+  text-transform: uppercase;
+  width: 250px;
+  height: 40px;
+  font-size: 17px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  font-family: monospace;
+  border: none;
+}
+.morebutton {
+  position: relative;
+  left: 90%;
+  top: -12.5px;
+  font-size: 1.5em;
+  width: 320px;
+  height: 50px;
+}
+.history {
+  position: relative;
+  left: 30%;
+}
+.home {
+  position: relative;
+  left: 5%
+}
+.allmore:hover {
+  opacity: 0.75;
+}
+.error {
+  position: relative;
+  left: 20%;
+  top: 20%;
+  text-align: center;
+}
