@@ -87,14 +87,14 @@ hr {
   cursor: not-allowed
 }
 
-.remove {
+.rem {
   cursor: pointer !important;
   position: relative;
   left: 48%;
   border: 1px solid black !important;
 }
 
-.remove:hover {
+.rem:hover {
   background-color: transparent;
   color: black;
 }
@@ -102,7 +102,7 @@ hr {
 .last {
   position: relative;
   bottom: -2%;
-  left: 20%;
+  left: 10%;
   width: 200px;
   font-size: 1.1em;
   display: initial;
@@ -111,6 +111,7 @@ hr {
   background: transparent;
   color: white;
   margin: 30px;
+  text-transform: capitalize;
 }
 
 .last:hover {
@@ -121,11 +122,11 @@ hr {
 .last:active {
   color: grey;
 }
-
-#b {
-  color: white;
+#b{
+  color: whitesmoke;
   font-size: 30px;
 }
+
 
 #custom {
   font-size: 30px;
