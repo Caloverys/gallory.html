@@ -6,156 +6,96 @@
 </head>
 
 <body>
-  <h1>Your previous liked images:
+  <h1>Your previous <span><i>liked</i></span> images:
     <h2>Total: <span>0</span></h2>
   </h1>
   <div class='grid'></div>
   <script type="text/javascript">
-    let span = document.querySelector('span')
-    let grid = document.querySelector('.grid')
     let liked = JSON.parse(localStorage.getItem("likeditem"))
+    let grid = document.querySelector('.grid')
     let disliked = JSON.parse(localStorage.getItem("dislikeditem"))
+    let name, oppname;
+    let span1 = document.querySelectorAll('span')[0]
+    let span2 = document.querySelectorAll('span')[1]
 
-    function displayliked() {
-      grid.innerHTML = ''
+    function display(list) {
+      window.scrollTo(0, 0)
+      document.querySelectorAll('span')[1].textContent = list.length
+      document.querySelector('.grid').innerHTML = ""
       let all = document.querySelectorAll(".last")
       if (all) {
         all.forEach(item => {
           item.remove()
         })
       }
-      if (liked.length == 0) {
-        grid.innerHTML += "<b id='b'>You doesn't have any disliked images yet! Click <button id='custom'>here</button> to go to the gallery to find some</b>"
-      }
-      for (let i in liked) {
+      if (list == liked) {
+        name = "liked"
+        oppname = "disliked"
 
-        let title = liked[i].title;
-        let date = liked[i].date
-        let url = liked[i].url
-        let service = liked[i].service_version
-        let media = liked[i].media_type
-        let copyright = liked[i].copyright
-        if (!copyright) {
-          copyright = '<i>Unknown</i>'
-        }
-        let content = liked[i].explanation
-        grid.innerHTML += `
+
+      } else {
+        name = 'disliked'
+        oppname = "liked"
+      }
+      document.querySelectorAll('span')[0].textContent = name
+      if (!list || list.length == 0) {
+        console.log('yes')
+        document.querySelector('.grid').innerHTML += `
+        <b id='b'>You doesn't have any ${name} images yet! Click <button id='custom' onclick="window.location.href ='gallery.html'">here</button> to go to the gallery to find some</b>
+        `
+      }
+      for (let i in list) {
+        document.querySelector('.grid').innerHTML += `
        <div class='gallery'>
-     
-        <div class='pho'>
-         <img class='ori' src=${url} alt='We are sorry but at this time we are unable to load this image or doesn't support this type of media'>
+          <div class='pho'>
+         <img class='ori' src=${list[i].url} alt='We are sorry but at this time we are unable to load this image or doesn't support this type of media'>
          </div>
-         <div class='title'>Title: ${title}</div>
+         <div class='title'>Title: ${list[i].title}</div>
          <hr class='hr'>
-          <div class='allcontent'>
-         <div class='date'>Date: ${date}</div>
-          <div class='copyright'>Copyright: ${copyright}</div>
-          <div class='media'>Media_type: ${media}</div>
-          <div class='service'>Service_version: ${service}</div>
-         <div class='content'>Explanation: ${content}</div>
+         <div class='allcontent'>
+         <div class='date'>Date: ${list[i].date}</div>
+          <div class='copyright'>Copyright: ${list[i].copyright}</div>
+          <div class='media'>Media_type: ${list[i].media_type}</div>
+          <div class='service'>Service_version: ${list[i].service_version}</div>
+         <div class='content'>Explanation: ${list[i].explanation}</div>
          </div>
-         <button class='effect' disabled>Liked</button>  
-         <button class='effect remove' >Remove</button>
+         <button class='effect'>${name}</button>
+          <button class='effect rem' onclick="check()">Remove</button>
          </div>
-         `
-      }
-      document.body.innerHTML += `
-       <button onclick = "window.location.href ='home.html'" class='last'>Homepage</button>
-       <button class='last' onclick='displaydisliked()'>Show Disliked images</button>
-       <button class='last' onclick='save()'>Save</button> 
-       <button class='last' onclick='clear(liked)'>Clear liked history</button>             `
-      span.textContent = parseInt(disliked.length)
-      for (let i in liked) {
-        let gallery = document.querySelectorAll('.gallery')
-        document.querySelectorAll('.remove')[i].addEventListener('click', function() {
-          liked.splice(liked.indexOf(liked[i], 1))
-          gallery[i].innerHTML = 'You remove this from history'
-          span.textContent = parseInt(disliked.length)
-        })
 
-      }
-    }
-
-
-
-    function displaydisliked() {
-      grid.innerHTML = ""
-      let all = document.querySelectorAll(".last")
-      if (all) {
-        all.forEach(item => {
-          item.remove()
-        })
-      }
-      if (disliked.length == 0) {
-        grid.innerHTML += "<b id='b'>You doesn't have any disliked images yet!</b>"
-      }
-      for (let i in disliked) {
-        let title = disliked[i].title;
-        let date = disliked[i].date
-        let url = disliked[i].url
-        let service = disliked[i].service_version
-        let media = disliked[i].media_type
-        let copyright = disliked[i].copyright
-        if (!copyright) {
-          copyright = '<i>Unknown</i>'
+       `
+        window.check = function() {
+          list.splice(list.indexOf(list[i], 1))
+          document.querySelectorAll('.gallery')[i].innerHTML = 'You remove this from history'
+          span2.textContent = parseInt(list.length)
+          console.log(document.querySelectorAll('span')[1])
+          console.log('yes')
         }
-        let content = disliked[i].explanation
-        grid.innerHTML += `
-       <div class='gallery'>
-     
-        <div class='pho'>
-         <img class='ori' src=${url} alt='We are sorry but at this time we are unable to load this image or doesn't support this type of media'>
-         </div>
-         <div class='title'>Title: ${title}</div>
-         <hr class='hr'>
-          <div class='allcontent'>
-         <div class='date'>Date: ${date}</div>
-          <div class='copyright'>Copyright: ${copyright}</div>
-          <div class='media'>Media_type: ${media}</div>
-          <div class='service'>Service_version: ${service}</div>
-         <div class='content'>Explanation: ${content}</div>
-         </div>
-         <button class='effect' disabled>Disiked</button>  
-         <button class='effect remove' >Remove</button>
-         <div>
-         `
-      }
-
-
-      document.body.innerHTML += `
-       <button onclick = "window.location.href ='home.html'" class='last'>Homepage</button>
-       <button class='last' onclick='displayliked()'>Show Liked images</button>
-       <button class='last' onclick='save()'>Save</button> 
-        <button class='last' onclick='clear(disliked)'>Clear disliked history</button>       `
-      span.textContent = parseInt(disliked.length)
-
-      for (let i in disliked) {
-        let gallery = document.querySelectorAll('.gallery')
-        document.querySelectorAll('.remove')[i].addEventListener('click', function() {
-          disliked.splice(disliked.indexOf(disliked[i], 1))
-          gallery[i].innerHTML = 'You remove this from history'
-        })
 
       }
+      document.body.innerHTML += ` 
+       <button onclick = "window.location.href ='homepage.html'" class='last'>Homepage</button>
+       <button class='last' onclick="display(${oppname})">Show ${oppname} images</button>
+       <button class='last' onclick='save(${name})'>Save</button>
+       <button class='last' onclick='location.href ="gallery.html"'>Gallery</button>
+       <button class='last' onclick='localStorage.clear()'>
+       Clear history</button>
+       `
     }
 
-    function save() {
-      span.textContent = parseInt(disliked.length)
-      localStorage.setItem('likeditem', JSON.stringify(liked));
-      localStorage.setItem('dislikeditem', JSON.stringify(disliked))
-    }
-    window.addEventListener('load', displayliked)
+
     window.addEventListener('beforeunload', function(e) {
       localStorage.setItem('likeditem', JSON.stringify(liked));
       localStorage.setItem('dislikeditem', JSON.stringify(disliked));
     })
 
-    function clear(item) {
-      localStorage.removeItem(item);
+
+    window.addEventListener('load', display(liked))
+
+    function save(list) {
+      document.querySelectorAll('span')[1].textContent = parseInt(list.length)
+      localStorage.setItem('likeditem', JSON.stringify(liked));
+      localStorage.setItem('dislikeditem', JSON.stringify(disliked))
     }
   </script>
-
-
 </body>
-
-</html>
