@@ -1,7 +1,7 @@
 <!DOCTYPE html>  
 <html>  
 <head>
-<link rel="stylesheet" href="new.css">    
+<link rel="stylesheet" href="gallery.css">    
 <style>
 body {
   display: grid;
@@ -21,8 +21,8 @@ button {
 <script>
 let source, load
 window.gallery = undefined;
-let liked = []
-let disliked = []
+let liked = JSON.parse(localStorage.getItem("likeditem"))
+let disliked = JSON.parse(localStorage.getItem("dislikeditem"))
 window.addEventListener('beforeunload', function(e) {
   localStorage.setItem('likeditem', JSON.stringify(liked));
   localStorage.setItem('dislikeditem', JSON.stringify(disliked));
@@ -63,7 +63,8 @@ function create() {
     if (!copyright) {
       copyright = '<i>Unknown</i>'
     }
-    let content = source[i].explanation.split(' ').slice(0, 20).join(' ')
+    let content = source[i].explanation.split(' ').slice(0,20).join(' ')
+    console.log(content)
     document.body.innerHTML += `
        <div class='gallery'>
      
@@ -83,7 +84,6 @@ function create() {
          <button class='details'>Show details</button><br>
          <button class='likebutton'>Like</button>  
          <button class='dislikebutton'>Dislike</button>
-
          </div>
        `
     if (i == source.length - 1) {
@@ -104,6 +104,7 @@ function create() {
     let alltitle = document.querySelectorAll('.title')
     //Apply eventListener to all the element
     for (let y in border) {
+
       function check() {
         if (liked.includes(source[y])) {
           liked.splice(liked.indexOf(source[y]), 1)
@@ -111,6 +112,7 @@ function create() {
           disliked.splice(disliked.indexOf(source[y]), 1)
         }
       }
+
       border[y].addEventListener('mouseenter', function() {
         img[y].style.transform = 'scale(1.3)'
       })
@@ -128,14 +130,14 @@ function create() {
       }
       likebutton[y].addEventListener('click', function() {
         if (this.textContent === 'Like') {
-          this.classList.add('clicked')
+          this.classList.toggle('clicked',true)
           this.textContent = "Liked"
-          dislikebutton[y].classList.remove('clicked')
+          dislikebutton[y].classList.toggle('clicked',false)
           dislikebutton[y].textContent = "Dislike"
           check()
           liked.push(source[y])
         } else {
-          this.classList.remove('clicked')
+          this.classList.toggle('clicked',false)
           this.textContent = "Like"
           check()
 
@@ -143,14 +145,14 @@ function create() {
       })
       dislikebutton[y].addEventListener('click', function() {
         if (this.textContent === 'Dislike') {
-          this.classList.toggle('clicked')
+          this.classList.toggle('clicked',true)
           this.textContent = "Disliked"
-          likebutton[y].classList.remove('clicked')
+          likebutton[y].classList.toggle('clicked',false)
           likebutton[y].textContent = "Like"
           check()
           disliked.push(source[y])
         } else {
-          this.classList.toggle('clicked')
+          this.classList.toggle('clicked',false)
           this.textContent = "Dislike"
           check()
         }
@@ -164,14 +166,14 @@ function create() {
           alltitle[y].style.fontSize = '40px'
           mediainfo[y].style.display = 'revert'
           serviceinfo[y].style.display = 'revert'
-          gallery[y].classList.add('more')
+          gallery[y].classList.toggle('more')
           alltitle[y].style.fontSize = '30px'
           explanation[y].textContent = "Explanation: " + source[i].explanation
           gallery[y].style.opacity = 1;
-          img[y].classList.add('new')
-          border[y].classList.add('new')
-          hr[y].classList.remove('hr')
-          all[y].classList.add('all')
+          img[y].classList.toggle('new')
+          border[y].classList.toggle('new')
+          hr[y].classList.toggle('hr')
+          all[y].classList.toggle('all')
           gallery.forEach(item => {
             if (item !== gallery[y])
               item.style.opacity = 0.3
@@ -181,28 +183,28 @@ function create() {
           removebutton.className = 'remove'
           removebutton.textContent = "X"
           details[y].innerHTML = '<b><i>Hide details</i></b>'
-          details[y].classList.add('newdetails')
+          details[y].classList.toggle('newdetails')
           gallery[y].appendChild(removebutton)
           document.querySelectorAll(".allmore").forEach(item => {
-            item.style.opacity = '0.3'
+            item.style.opacity = 0.3
           })
 
           removebutton.addEventListener('click', function() {
             alltitle[y].style.fontSize = '18px'
             mediainfo[y].style.display = 'none'
             serviceinfo[y].style.display = 'none'
-            img[y].classList.remove('new')
-            border[y].classList.remove('new')
-            gallery[y].classList.remove('more')
-            details[y].classList.remove('newdetails')
-            all[y].classList.remove('all')
+            img[y].classList.toggle('new')
+            border[y].classList.toggle('new')
+            gallery[y].classList.toggle('more')
+            details[y].classList.toggle('newdetails')
+            all[y].classList.toggle('all')
             explanation[y].textContent = "Explanation: " + source[i].explanation.split(' ').slice(0, 20).join(' ')
             details[y].textContent = 'Show details'
             gallery.forEach(item => {
               item.style.opacity = 1
             })
             document.querySelectorAll(".allmore").forEach(item => {
-              item.style.opacity = '0.3'
+              item.style.opacity = 1
             })
             removebutton.remove()
           })
@@ -216,7 +218,6 @@ function create() {
     }
   }
 }
-
 function create2(ele) {
   ele.innerHTML += `
   <button onclick = "window.location.href ='home.html'" class='allmore home'>Homepage</button>
@@ -229,7 +230,7 @@ function create2(ele) {
     allmore.forEach(item => {
       item.remove()
     })
-    send(24)
+    send(28)
     document.querySelector(".loading").style.display = ""
     document.body.style.backgroundColor = 'black'
     gallery.forEach(item => {
@@ -239,7 +240,7 @@ function create2(ele) {
   })
 }
 window.addEventListener("load", function() {
-  send(20)
+  send(28)
 })
 
 </script>
