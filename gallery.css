@@ -43,7 +43,6 @@
 }
 
 
-}
 .effect:hover {
   background: rgba(255, 182, 193, 0.9);
   color: rgb(255, 0, 255);
@@ -60,25 +59,31 @@
   text-align: center;
   width: 92.5%;
 }
+
+/*To make a child element become absolute in its parent element,
+use position relative to parent element and position absolute to child element.*/
 .likebutton,
 .dislikebutton {
   background: transparent;
-  position: relative;
-  left: 10%;
+  width: 100px;
+  font-size: 1.1em;
   padding: 3px;
   padding-left: 7px;
   padding-right: 7px;
   border: 1px solid rgba(120, 120, 120, 0.6);
-  font-size: 1.01em;
-  margin-top: 10px;
 }
-.likebutton {
-  position: relative;
-  left: 2%;
+
+.likebutton{
+  position: absolute;
+  top: calc(var(--wid) + 230px);
+  left: 20px;
+
 }
-.dislikebutton {
-  position: relative;
-  left: 60%;
+.dislikebutton{
+  position: absolute;
+  top: calc(var(--wid) + 230px);
+  right: 20px;
+
 }
 .lovebutton {
   background: white;
@@ -106,11 +111,12 @@
   border-radius: 10px;
   background: white;
   width: var(--wid);
-  /*space between + in calc()*/
-  
+  /*if we use calc() to add or minus, 
+  we have to has the space between the symbol/sign (+/-) in calc() and include the unit*/
   height: calc(var(--hei) + 300px);
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   padding: 10px;
+  position: relative;
   line-height: 1.7em;
 }
 .details {
@@ -146,7 +152,7 @@
   font-weight: 700;
   font-size: 20px;
   position: relative;
-  left: 99%;
+  left: 98%;
   top: -168%;
   border: none;
   color: grey;
@@ -177,7 +183,6 @@
 .title {
   font-weight: bolder;
   font-size: 18px;
-  line-height: 1.2em;
 }
 .clicked {
   background-color: black;
@@ -219,7 +224,6 @@
 }
 .error {
   position: relative;
-  left: 20%;
   top: 20%;
   text-align: center;
 }
