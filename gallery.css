@@ -2,7 +2,15 @@
   --wid: 325px;
   --hei: 275px;
 }
-
+button {
+  cursor: pointer;
+}
+#grid{
+   display: grid;
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+  grid-template-columns: repeat(4, auto);
+}
 @keyframes load8 {
   0% {
     transform: rotate(0deg);
@@ -111,8 +119,7 @@ use position relative to parent element and position absolute to child element.*
   border-radius: 10px;
   background: white;
   width: var(--wid);
-  /*if we use calc() to add or minus, 
-  we have to has the space between the symbol/sign (+/-) in calc() and include the unit*/
+  /*space between + in calc()*/
   height: calc(var(--hei) + 300px);
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   padding: 10px;
@@ -202,18 +209,18 @@ use position relative to parent element and position absolute to child element.*
   border-radius: 5px;
   font-family: monospace;
   border: none;
+  margin-top: 30px;
 }
 .morebutton {
-  position: relative;
-  left: 90%;
-  top: -12.5px;
   font-size: 1.5em;
+  position: relative;
+  left: 40%;
   width: 320px;
   height: 50px;
 }
 .history {
   position: relative;
-  left: 30%;
+  left: 25%;
 }
 .home {
   position: relative;
@@ -222,8 +229,9 @@ use position relative to parent element and position absolute to child element.*
 .allmore:hover {
   opacity: 0.75;
 }
+
 .error {
-  position: relative;
-  top: 20%;
+position: relative;
+top: 25%;
   text-align: center;
 }
